@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Attention to Detail Self-Assessment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --fs-title: clamp(1.5rem, 1.2rem + 1.8vw, 2.6rem);
+      --fs-subtitle: clamp(0.92rem, 0.86rem + 0.35vw, 1.05rem);
+      --fs-question: clamp(0.93rem, 0.88rem + 0.35vw, 1.02rem);
+    }
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    }
+    .mesh-bg {
+      min-height: 100vh;
+      background-color: #061525;
+      background-image:
+        radial-gradient(ellipse 100% 90% at 100% 100%, rgba(13, 61, 69, 0.95) 0%, transparent 55%),
+        radial-gradient(ellipse 85% 85% at 0% 0%, rgba(8, 22, 48, 0.98) 0%, transparent 50%),
+        radial-gradient(ellipse 75% 70% at 0% 100%, rgba(250, 204, 21, 0.75) 0%, transparent 45%),
+        radial-gradient(ellipse 95% 80% at 92% 8%, rgba(45, 212, 191, 0.55) 0%, transparent 48%),
+        radial-gradient(ellipse 70% 60% at 55% 45%, rgba(20, 184, 166, 0.35) 0%, transparent 55%),
+        linear-gradient(165deg, #0c4a6e 0%, #0f766e 40%, #134e4a 100%);
+    }
+    .theme-header {
+      background: linear-gradient(135deg, rgba(6, 21, 37, 0.97) 0%, rgba(15, 118, 110, 0.92) 55%, rgba(20, 184, 166, 0.85) 100%);
+    }
+    .score-gradient {
+      background: linear-gradient(120deg, #0e7490 0%, #14b8a6 45%, #ca8a04 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    #quizForm .option-label input[type="radio"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+  </style>
+</head>
+<body class="mesh-bg p-4 sm:p-6 md:p-8">
+  <main class="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl shadow-teal-950/40 border border-white/25 ring-1 ring-white/10">
+    <header class="theme-header px-4 py-6 sm:px-6 sm:py-8 md:px-8 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-30 pointer-events-none" aria-hidden="true"
+        style="background: radial-gradient(ellipse 80% 60% at 100% 0%, rgba(250, 204, 21, 0.35) 0%, transparent 50%);"></div>
+      <div class="relative">
+        <p class="text-teal-100/90 text-[11px] sm:text-xs font-semibold tracking-[0.22em] uppercase mb-2.5">Self-assessment</p>
+        <h1 class="font-bold tracking-tight leading-tight max-w-2xl" style="font-size: var(--fs-title);">
+          Attention to Detail
+        </h1>
+        <p class="mt-2.5 text-teal-50/90 max-w-xl leading-relaxed" style="font-size: var(--fs-subtitle);">
+          For each statement, choose how often it applies to you. There are no wrong answers.
+        </p>
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs sm:text-sm max-w-4xl">
+          <div class="rounded-lg bg-white/10 border border-white/20 px-3 py-2">
+            <p class="font-semibold text-white">Almost never</p>
+            <p class="text-teal-100/90">1 point</p>
+          </div>
+          <div class="rounded-lg bg-white/10 border border-white/20 px-3 py-2">
+            <p class="font-semibold text-white">Rarely</p>
+            <p class="text-teal-100/90">2 points</p>
+          </div>
+          <div class="rounded-lg bg-white/10 border border-white/20 px-3 py-2">
+            <p class="font-semibold text-white">Occasionally</p>
+            <p class="text-teal-100/90">3 points</p>
+          </div>
+          <div class="rounded-lg bg-white/10 border border-white/20 px-3 py-2">
+            <p class="font-semibold text-white">Often</p>
+            <p class="text-teal-100/90">4 points</p>
+          </div>
+          <div class="rounded-lg bg-white/10 border border-white/20 px-3 py-2">
+            <p class="font-semibold text-white">Almost always</p>
+            <p class="text-teal-100/90">5 points</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="bg-gradient-to-b from-slate-50 to-white px-4 py-5 sm:px-6 sm:py-7 md:px-8 md:py-8">
+      <div id="progressWrap" class="sticky top-0 z-20 mb-5 sm:mb-6 bg-white/85 backdrop-blur-sm border border-teal-100/80 rounded-xl p-3 sm:p-3.5 shadow-sm">
+        <div class="flex items-center justify-between gap-3 mb-2">
+          <span class="text-xs font-semibold uppercase tracking-widest text-teal-800/80">Your progress</span>
+          <span id="progressText" class="text-xs sm:text-sm font-semibold tabular-nums text-slate-700">0 / 15</span>
+        </div>
+        <div class="h-2.5 rounded-full bg-teal-100/90 overflow-hidden ring-1 ring-teal-200/50">
+          <div id="progressBar" class="h-full rounded-full bg-gradient-to-r from-amber-400 via-teal-400 to-teal-600 transition-[width] duration-500 ease-out w-0" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <form id="quizForm" class="space-y-4 sm:space-y-6">
+        <script>
+          const statements = [
+            "When reading, I notice even minor errors in spelling or grammar.",
+            "I double-check names, numbers, and other important details before finalising a document or sending an email.",
+            "When given multi-step instructions, I can accurately recall and follow each step without frequently referring back.",
+            "I carefully organise my workspace, ensuring everything has a specific place.",
+            "When someone provides oral information, I often need to clarify or ask them to repeat details.",
+            "I find discrepancies in data or patterns that others often overlook.",
+            "I tend to complete tasks well before deadlines, giving myself ample time to review my work.",
+            "I feel the need to make to-do lists and check off tasks as I complete them.",
+            "In team meetings or discussions, I frequently catch and remember points that others may forget.",
+            "I prefer to work on one task at a time rather than juggling multiple tasks simultaneously.",
+            "When learning a new task, I prefer step-by-step guidance and thorough explanations.",
+            "I often spot inconsistencies in stories, articles, or reports that others might miss.",
+            "Before making decisions, I gather all the necessary information and consider every detail.",
+            "I feel uncomfortable if I don't get the chance to review my work multiple times.",
+            "People often rely on me to catch mistakes or oversee quality checks because of my meticulous nature."
+          ];
+
+          const options = [
+            { label: "Almost never", value: 1 },
+            { label: "Rarely", value: 2 },
+            { label: "Occasionally", value: 3 },
+            { label: "Often", value: 4 },
+            { label: "Almost always", value: 5 }
+          ];
+
+          const starIconPath =
+            "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
+
+          function updateProgress() {
+            let answered = 0;
+            for (let i = 0; i < statements.length; i++) {
+              if (document.querySelector(`input[name="q${i}"]:checked`)) answered++;
+            }
+            const pct = (answered / statements.length) * 100;
+            const bar = document.getElementById("progressBar");
+            const text = document.getElementById("progressText");
+            if (bar) bar.style.width = pct + "%";
+            if (text) text.textContent = answered + " / " + statements.length;
+          }
+
+          window.onload = () => {
+            const container = document.getElementById("questions");
+            const form = document.getElementById("quizForm");
+
+            statements.forEach((stmt, index) => {
+              const qDiv = document.createElement("article");
+              qDiv.className =
+                "group relative rounded-xl border border-teal-200/55 bg-white/80 p-3.5 sm:p-4.5 shadow-sm shadow-teal-900/5 ring-1 ring-teal-900/[0.03] hover:border-teal-300/70 hover:shadow-md hover:shadow-teal-900/8 transition-all duration-200";
+
+              const num = String(index + 1).padStart(2, "0");
+              let html = `<div class="flex items-start gap-2.5 sm:gap-3 mb-3">`;
+              html += `<span class="shrink-0 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-gradient-to-br from-slate-800 to-teal-600 text-[11px] sm:text-xs font-bold text-white shadow-md shadow-teal-900/25">${num}</span>`;
+              html += `<p class="font-semibold text-slate-800 leading-snug pt-0.5 break-words" style="font-size: var(--fs-question);">${stmt}</p></div>`;
+              html += `<div class="grid grid-cols-[repeat(auto-fit,minmax(90px,1fr))] gap-2 justify-items-center">`;
+
+              options.forEach(opt => {
+                html += `
+                  <label class="option-label group relative w-auto max-w-[110px] mx-auto flex flex-col items-center justify-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-lg cursor-pointer border border-teal-100/90 bg-white text-slate-700 text-xs sm:text-sm font-medium hover:border-teal-400/55 hover:bg-slate-50 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/60 has-[:checked]:text-slate-900 has-[:checked]:shadow-[inset_0_0_0_1px_rgba(245,158,11,0.35)] transition-all duration-200 ease-in-out focus-within:ring-2 focus-within:ring-teal-400/45 focus-within:ring-offset-1 focus-within:ring-offset-white">
+                    <input type="radio" name="q${index}" value="${opt.value}" required>
+                    <span class="relative inline-flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center text-teal-700 opacity-80 group-hover:opacity-100 group-hover:scale-105 group-has-[:checked]:opacity-100 group-has-[:checked]:text-amber-500 group-has-[:checked]:scale-110 transition-all duration-200 ease-in-out" aria-hidden="true">
+                      <svg class="h-full w-full drop-shadow-sm group-has-[:checked]:drop-shadow-md" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2"><path d="${starIconPath}"/></svg>
+                      <span class="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white leading-none">${opt.value}</span>
+                    </span>
+                    <span class="sr-only">${opt.label}</span>
+                  </label>
+                `;
+              });
+
+              html += `</div>`;
+              qDiv.innerHTML = html;
+              container.appendChild(qDiv);
+            });
+
+            form.addEventListener("change", updateProgress);
+            updateProgress();
+          };
+        </script>
+
+        <div id="questions" class="space-y-4 sm:space-y-6"></div>
+
+        <div class="text-center pt-1">
+          <button type="submit"
+            class="inline-flex w-full sm:w-auto min-h-[44px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-700 to-teal-500 px-6 sm:px-10 py-3 text-sm sm:text-base font-semibold text-white tracking-wide shadow-lg shadow-teal-900/30 ring-1 ring-white/20 transition-all duration-200 hover:from-teal-800 hover:to-teal-600 hover:shadow-xl hover:shadow-teal-900/35 active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50">
+            <span>Calculate score</span>
+            <svg class="h-5 w-5 opacity-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </button>
+        </div>
+      </form>
+
+      <div id="result" class="mt-6 sm:mt-8 hidden">
+        <div class="relative rounded-xl sm:rounded-2xl border border-teal-200/60 bg-gradient-to-br from-white via-teal-50/35 to-amber-50/35 p-4 sm:p-6 md:p-8 text-center shadow-inner ring-1 ring-teal-900/5">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-teal-700/80 mb-2">Result</p>
+          <h2 class="text-base sm:text-xl font-semibold text-slate-700 mb-1">Your score</h2>
+          <p class="score-gradient font-bold tabular-nums tracking-tight mb-3 sm:mb-4" style="font-size: clamp(2rem, 1.6rem + 2vw, 3.2rem);" id="score"></p>
+          <p id="interpretation" class="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl mx-auto"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("quizForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let total = 0;
+      for (let i = 0; i < statements.length; i++) {
+        const val = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!val) return;
+        total += parseInt(val.value, 10);
+      }
+
+      let interpretation = "";
+
+      if (total >= 65) {
+        interpretation = "Exceptional attention to detail. You rarely overlook even the smallest details.";
+      } else if (total >= 50) {
+        interpretation = "Above-average attention to detail. You are generally meticulous with occasional lapses.";
+      } else if (total >= 35) {
+        interpretation = "Average attention to detail. There is room for improvement.";
+      } else {
+        interpretation = "Below-average attention to detail. Consider strategies to improve focus and accuracy.";
+      }
+
+      document.getElementById("score").textContent = total + " / 75";
+      document.getElementById("interpretation").innerText = interpretation;
+      const resultEl = document.getElementById("result");
+      resultEl.classList.remove("hidden");
+      resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>
