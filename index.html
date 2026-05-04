@@ -37,7 +37,7 @@
       background-clip: text;
       color: transparent;
     }
-    #quizForm .option-label input[type="radio"] {
+    #quizForm .rating input[type="radio"] {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -47,6 +47,26 @@
       clip: rect(0, 0, 0, 0);
       white-space: nowrap;
       border-width: 0;
+    }
+    .rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+    .rating label {
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .rating label:hover,
+    .rating label:hover ~ label {
+      color: #facc15;
+      transform: scale(1.05);
+    }
+    .rating input:checked ~ label {
+      color: #f59e0b;
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -119,14 +139,6 @@
             "People often rely on me to catch mistakes or oversee quality checks because of my meticulous nature."
           ];
 
-          const options = [
-            { label: "Almost never", value: 1 },
-            { label: "Rarely", value: 2 },
-            { label: "Occasionally", value: 3 },
-            { label: "Often", value: 4 },
-            { label: "Almost always", value: 5 }
-          ];
-
           const starIconPath =
             "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
 
@@ -155,22 +167,21 @@
               let html = `<div class="flex items-start gap-2.5 sm:gap-3 mb-3">`;
               html += `<span class="shrink-0 flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg bg-gradient-to-br from-slate-800 to-teal-600 text-[11px] sm:text-xs font-bold text-white shadow-md shadow-teal-900/25">${num}</span>`;
               html += `<p class="font-semibold text-slate-800 leading-snug pt-0.5 break-words" style="font-size: var(--fs-question);">${stmt}</p></div>`;
-              html += `<div class="grid grid-cols-[repeat(auto-fit,minmax(90px,1fr))] gap-2 justify-items-center">`;
-
-              options.forEach(opt => {
+              html += `<div class="mt-2 sm:mt-2.5">`;
+              html += `<div class="rating" role="radiogroup" aria-label="Rate statement ${index + 1} from 1 to 5 stars">`;
+              for (let value = 5; value >= 1; value--) {
+                const inputId = `q${index}-${value}`;
                 html += `
-                  <label class="option-label group relative w-auto max-w-[110px] mx-auto flex flex-col items-center justify-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-lg cursor-pointer border border-teal-100/90 bg-white text-slate-700 text-xs sm:text-sm font-medium hover:border-teal-400/55 hover:bg-slate-50 has-[:checked]:border-amber-400 has-[:checked]:bg-amber-50/60 has-[:checked]:text-slate-900 has-[:checked]:shadow-[inset_0_0_0_1px_rgba(245,158,11,0.35)] transition-all duration-200 ease-in-out focus-within:ring-2 focus-within:ring-teal-400/45 focus-within:ring-offset-1 focus-within:ring-offset-white">
-                    <input type="radio" name="q${index}" value="${opt.value}" required>
-                    <span class="relative inline-flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center text-teal-700 opacity-80 group-hover:opacity-100 group-hover:scale-105 group-has-[:checked]:opacity-100 group-has-[:checked]:text-amber-500 group-has-[:checked]:scale-110 transition-all duration-200 ease-in-out" aria-hidden="true">
-                      <svg class="h-full w-full drop-shadow-sm group-has-[:checked]:drop-shadow-md" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.2"><path d="${starIconPath}"/></svg>
-                      <span class="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white leading-none">${opt.value}</span>
+                  <input id="${inputId}" type="radio" name="q${index}" value="${value}" required>
+                  <label for="${inputId}" aria-label="${value} star${value > 1 ? "s" : ""}">
+                    <span class="relative inline-flex h-6 w-6 sm:h-7 sm:w-7 items-center justify-center">
+                      <svg class="h-full w-full" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="${starIconPath}"/></svg>
+                      <span class="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold text-white leading-none">${value}</span>
                     </span>
-                    <span class="sr-only">${opt.label}</span>
                   </label>
                 `;
-              });
-
-              html += `</div>`;
+              }
+              html += `</div></div>`;
               qDiv.innerHTML = html;
               container.appendChild(qDiv);
             });
